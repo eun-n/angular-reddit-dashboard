@@ -2,15 +2,17 @@
 
 console.log('this file is running.');
 
-var redApp = angular.module('RedApp', []);
+var redApp = angular.module('redApp', []);
 
 redApp.controller('SearchCtrl', ['$scope', '$http', function($scope, $http) {
 	//instantiate search term
 	$scope.searchTerm = '';
 	$scope.title = '';
 	$scope.permalink = '';
+	$scope.author = '';
 	$scope.resultsTitles =[];
 	$scope.resultspermas = [];
+	$scope.resultsAuthors = [];
 	// $scope.stats = {
 	// 	name: '',
 	// 	type: '',
@@ -34,13 +36,18 @@ redApp.controller('SearchCtrl', ['$scope', '$http', function($scope, $http) {
 			var redData = res.data.data.children;
 			$scope.resultsTitles =[];
 			$scope.resultspermas = [];
-			for(var i=0; i<25; i++) {
+			$scope.resultsAuthors = [];
+			for(var i=0; i<5; i++) {
 			$scope.title = redData[i].data.title;
+			$scope.author = redData[i].data.author;
 			$scope.permalink = 'http://reddit.com' + redData[i].data.permalink;
 			$scope.resultsTitles.push($scope.title);
 			$scope.resultspermas.push($scope.permalink);
-		} console.log($scope.resultsTitles);
+			$scope.resultsAuthors.push($scope.author);
+		} 
+		console.log($scope.resultsTitles);
 		console.log($scope.resultspermas);
+		console.log($scope.resultsAuthors);
 
 		}, function error(res) {
 			console.log(res);
