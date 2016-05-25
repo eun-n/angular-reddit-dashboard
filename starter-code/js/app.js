@@ -4,7 +4,7 @@ console.log('this file is running.');
 
 var redApp = angular.module('redApp', []);
 
-redApp.controller('SearchCtrl', ['$scope', '$http', function($scope, $http) {
+redApp.controller('RedCtrl', ['$scope', '$http', function($scope, $http) {
 	//instantiate search term
 	$scope.searchTerm = '';
 	$scope.title = '';
@@ -13,12 +13,8 @@ redApp.controller('SearchCtrl', ['$scope', '$http', function($scope, $http) {
 	$scope.resultsTitles =[];
 	$scope.resultspermas = [];
 	$scope.resultsAuthors = [];
-	// $scope.stats = {
-	// 	name: '',
-	// 	type: '',
-	// 	height: 0,
-	// 	weight: 0;
-	// };
+	$scope.searchHist = [];
+
 
 	//search function
 	$scope.search = function() {
@@ -32,25 +28,60 @@ redApp.controller('SearchCtrl', ['$scope', '$http', function($scope, $http) {
 			// }
 		}
 
+		$scope.searchHist.push($scope.searchTerm);
+
 		$http(req).then(function success(res) {
-			var redData = res.data.data.children;
 			$scope.resultsTitles =[];
 			$scope.resultspermas = [];
 			$scope.resultsAuthors = [];
-			for(var i=0; i<5; i++) {
-			$scope.title = redData[i].data.title;
-			$scope.author = redData[i].data.author;
-			$scope.permalink = 'http://reddit.com' + redData[i].data.permalink;
-			$scope.resultsTitles.push($scope.title);
-			$scope.resultspermas.push($scope.permalink);
-			$scope.resultsAuthors.push($scope.author);
-		} 
+
+			var redData = res.data.data.children;
+			for(var i=0; i<25; i++) {
+				$scope.title = redData[i].data.title;
+				$scope.author = redData[i].data.author;
+				$scope.permalink = 'http://reddit.com' + redData[i].data.permalink;
+				$scope.resultsTitles.push($scope.title);
+				$scope.resultspermas.push($scope.permalink);
+				$scope.resultsAuthors.push($scope.author);
+			} 
 		console.log($scope.resultsTitles);
-		console.log($scope.resultspermas);
-		console.log($scope.resultsAuthors);
+		// console.log($scope.resultspermas);
+		// console.log($scope.resultsAuthors);
 
 		}, function error(res) {
 			console.log(res);
 		});
+	}
+
+	$scope.history = function(aa) {
+		$scope.searchTerm= aa;
+		var req = {
+			url: "https://www.reddit.com/search.json?q=" + $scope.searchTerm,
+			method: 'GET',
+		}
+
+		$http(req).then(function success(res) {
+			$scope.resultsTitles =[];
+			$scope.resultspermas = [];
+			$scope.resultsAuthors = [];
+
+			var redData = res.data.data.children;
+			for(var i=0; i<25; i++) {
+				$scope.title = redData[i].data.title;
+				$scope.author = redData[i].data.author;
+				$scope.permalink = 'http://reddit.com' + redData[i].data.permalink;
+				$scope.resultsTitles.push($scope.title);
+				$scope.resultspermas.push($scope.permalink);
+				$scope.resultsAuthors.push($scope.author);
+			} 
+		console.log($scope.resultsTitles);
+		// console.log($scope.resultspermas);
+		// console.log($scope.resultsAuthors);
+
+		}, function error(res) {
+			console.log(res);
+		});
+
+
 	}
 }]);

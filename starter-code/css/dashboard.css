@@ -124,3 +124,7 @@ body {
   color: red;
   background: none;
 }
+
+.title {
+  width: 400px;
+}
