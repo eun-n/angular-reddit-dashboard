@@ -74,7 +74,7 @@ redApp.controller('RedCtrl', ['$scope', '$http', function($scope, $http) {
 				$scope.resultspermas.push($scope.permalink);
 				$scope.resultsAuthors.push($scope.author);
 			} 
-		console.log($scope.resultsTitles);
+		// console.log($scope.resultsTitles);
 		// console.log($scope.resultspermas);
 		// console.log($scope.resultsAuthors);
 
@@ -83,5 +83,10 @@ redApp.controller('RedCtrl', ['$scope', '$http', function($scope, $http) {
 		});
 
 
+	}
+
+	$scope.deletehist = function(bb) {
+		var del = $scope.searchHist.indexOf(bb);
+		$scope.searchHist.splice(del, 1);
 	}
 }]);
