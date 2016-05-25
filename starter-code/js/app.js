@@ -19,6 +19,14 @@ redApp.controller('RedCtrl', ['$scope', '$http', function($scope, $http) {
 	$scope.resultsImages = [];
 	$scope.resultsScores = [];
 
+	//page load
+	 var load = function () {
+		var newtaco = JSON.parse(window.localStorage.taco);
+		$scope.searchHist = newtaco;
+	}
+
+	//immmediately call load function
+	load();
 
 	//search function
 	$scope.search = function() {
@@ -33,6 +41,10 @@ redApp.controller('RedCtrl', ['$scope', '$http', function($scope, $http) {
 		}
 
 		$scope.searchHist.push($scope.searchTerm);
+		var taco = $scope.searchHist;
+		window.localStorage.taco=JSON.stringify(taco);
+		// console.log(window.localStorage.taco);
+
 
 		$http(req).then(function success(res) {
 			$scope.resultsTitles =[];
@@ -42,7 +54,7 @@ redApp.controller('RedCtrl', ['$scope', '$http', function($scope, $http) {
 			$scope.resultsScores = [];
 
 			var redData = res.data.data.children;
-			console.log(redData);
+			// console.log(redData);
 			for(var i=0; i<25; i++) {
 				$scope.title = redData[i].data.title;
 				$scope.author = redData[i].data.author;
