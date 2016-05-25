@@ -35,7 +35,7 @@ redApp.controller('RedCtrl', ['$scope', '$http', function($scope, $http) {
 			method: 'GET',
 			
 			//params only for when the url has a ? or a q before the query
-			// params: {
+			// params: {gi
 			// 	q:$scope.searchTerm
 			// }
 		}
@@ -114,5 +114,7 @@ redApp.controller('RedCtrl', ['$scope', '$http', function($scope, $http) {
 	$scope.deletehist = function(bb) {
 		var del = $scope.searchHist.indexOf(bb);
 		$scope.searchHist.splice(del, 1);
+		var taco = $scope.searchHist;
+		window.localStorage.taco=JSON.stringify(taco);
 	}
 }]);
