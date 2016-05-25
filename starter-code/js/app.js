@@ -11,11 +11,13 @@ redApp.controller('RedCtrl', ['$scope', '$http', function($scope, $http) {
 	$scope.permalink = '';
 	$scope.author = '';
 	$scope.image = '';
+	$scope.score = '';
 	$scope.resultsTitles =[];
 	$scope.resultspermas = [];
 	$scope.resultsAuthors = [];
 	$scope.searchHist = [];
 	$scope.resultsImages = [];
+	$scope.resultsScores = [];
 
 
 	//search function
@@ -37,6 +39,7 @@ redApp.controller('RedCtrl', ['$scope', '$http', function($scope, $http) {
 			$scope.resultspermas = [];
 			$scope.resultsAuthors = [];
 			$scope.resultsImages = [];
+			$scope.resultsScores = [];
 
 			var redData = res.data.data.children;
 			console.log(redData);
@@ -45,9 +48,11 @@ redApp.controller('RedCtrl', ['$scope', '$http', function($scope, $http) {
 				$scope.author = redData[i].data.author;
 				$scope.permalink = 'http://reddit.com' + redData[i].data.permalink;
 				$scope.image = redData[i].data.url;
+				$scope.score = redData[i].data.score;
 				$scope.resultsTitles.push($scope.title);
 				$scope.resultspermas.push($scope.permalink);
 				$scope.resultsAuthors.push($scope.author);
+				$scope.resultsScores.push($scope.score);
 				if(redData[i].data.domain == "i.imgur.com") {
 					$scope.resultsImages.push($scope.image);
 				}

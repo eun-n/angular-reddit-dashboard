@@ -65,14 +65,12 @@
                 <tr>
                   <th>Author</th>
                   <th>Title</th>
-                  <th>Link</th>
-                  <th>Permalink</th>
+                  <th>Score</th>
                 </tr>
                 <tr ng-repeat="s in resultsTitles track by $index">
                      <td>{{resultsAuthors[$index]}}</td>
-                     <td>{{s}}</td>
-                     <td>{{resultspermas[$index]}}</td>
-                     <td>{{resultslinks[$index]}}</td>
+                     <td><a href="{{resultspermas[$index]}}">{{s}}</a></td>
+                     <td>{{resultsScores[$index]}}</td>
                 </tr>
               </thead>
               <tbody>
